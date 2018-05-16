@@ -1,7 +1,18 @@
 package com.example.brom.activitiesapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mountainNames = {"Matterhorn","Mont Blanc","Denali"};
@@ -14,24 +25,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 1. Create a ListView as in previous assignment
-        // 2. Create a new activity named "MountainDetailsActivity
-        // 3. Create a new Layout file for the MountainDetailsActivity called
-        //    "activity_mountaindetails". MountainDetailsActivity must have MainActivity as its
-        //    ´parent activity.
-        // 4. The layout file created in step 3 must have a LinearLayout
-        // 5. The layout file created in step 3 must be able to display
-        //    * Mountain Name
-        //    * Mountain Location
-        //    * Mountain Height
-        // 6. When tapping on a list item: create an Intent that includes
-        //    * Mountain Name
-        //    * Mountain Location
-        //    * Mountain Height
-        // 7. Display the MountainDetailsActivity with the data from the Intent created in step
-        //    6
-        // 8. From the MountainDetailsActivity you should have an option to "go back" using an
-        //    left arro button. This is done by letting the MainActivity be the parent activity to
-        //    MountainDetailsActivity.
+        List<String> listdata = new ArrayList<String>(Arrays.asList(mountainNames));
+        // The onCreate method is run when the app is created.
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.list_item_textview,R.id.my_item_textview,listdata);
+
+        ListView myListView = (ListView)findViewById(R.id.my_ListView);
+        myListView.setAdapter(adapter);
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, MountainDetailsActivity.class);
+
+                startActivity(intent);
+
+            }
+        });
     }
 }
