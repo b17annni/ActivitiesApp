@@ -20,12 +20,16 @@ public class MountainDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         Intent intent = getIntent();
+        String locations = intent.getStringExtra("mountainLocations");
+        String names = intent.getStringExtra("mountainNames");
+        String heights = intent.getStringExtra("mountainHeights");
 
         TextView myTextView = (TextView)findViewById(R.id.myTextView);
+        myTextView.setText("Namn: " + names + '\n' + "Plats: "+ locations + '\n' + "Höjd: "+ heights);
+    }
 
 
     }
 
-}
+

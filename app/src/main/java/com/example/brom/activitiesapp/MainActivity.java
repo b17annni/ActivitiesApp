@@ -25,23 +25,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<String> listdata = new ArrayList<String>(Arrays.asList(mountainNames));
-        // The onCreate method is run when the app is created.
-        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.list_item_textview,R.id.my_item_textview,listdata);
+        // 1. Create a ListView as in previous assignment
+        List<String> listData = new ArrayList<String>(Arrays.asList(mountainNames));
+
+        // 3. Create an ArrayAdapter object that connects
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.list_item_textview,R.id.my_item_textview,listData);
 
         ListView myListView = (ListView)findViewById(R.id.my_ListView);
-        myListView.setAdapter(adapter);
 
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, MountainDetailsActivity.class);
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // INTENT
+                Intent intent = new Intent(getApplicationContext(), MountainDetailsActivity.class);
+                intent.putExtra("mountainLocations", mountainLocations[position]);
 
-
-
+                intent.putExtra("mountainNames", mountainNames[position]);
+                int heights = mountainHeights[position];
+                String mountainHeights = Integer.toString(heights);
+                intent.putExtra("mountainHeights", mountainHeights);
                 startActivity(intent);
-
             }
         });
+
+        myListView.setAdapter(adapter);
     }
 }
